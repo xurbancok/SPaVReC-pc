@@ -2,42 +2,82 @@ package sk.fiit.remotefiit.server;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import sk.fiit.remotefiit.app.PositionData;
+import sk.fiit.remotefiit.app.JSONParser;
+import sk.fiit.remotefiit.app.Movement;
 import sk.fiit.remotefiit.app.RemoteFiit;
-import sk.fiit.remotefiit.control.Control;
+import sk.fiit.remotefiit.control.VRControl;
 
 public class Server implements Runnable {
-	
-	private int serverPort;
+
 	private RemoteFiit application;
-	private Control control;
-	private PositionData startPosition;
-	private boolean extendedFunction = false;
+	private VRControl control;
+	private JSONParser jsonParser;
+	private int port;
 	
 	public Server(int port, RemoteFiit application){
-		this.serverPort = port;
 		this.application = application;
-		this.control = new Control();
+		this.control = new VRControl();
+		this.jsonParser = new JSONParser();
 	}
 
 	@Override
 	public void run() {
 		DatagramSocket serverSocket;
 		try {
-			serverSocket = new DatagramSocket(serverPort);
-			byte[] receiveData = new byte[320];
+			serverSocket = new DatagramSocket(0);
+			application.setPort(String.valueOf(serverSocket.getLocalPort()));
+			byte receiveData[] = new byte[320];
 			DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
 			
 			while (true) {
 				serverSocket.receive(receivePacket);
 				String receivedMessage = new String(receivePacket.getData());
-				//System.out.println("RECEIVED: " + receivedMessage);
+				System.out.println("RECEIVED: " + receivedMessage);
+				//JSONObject obj = new JSONObject(receivedMessage);
 				JSONObject obj = new JSONObject(receivedMessage);
-				PositionData resultData = new PositionData();
-				
+				List<Movement> movements = jsonParser.parse(obj);
+				if(movements!=null && movements.size()!=0){
+					for(Movement item : movements){
+						switch(item){
+						case LOOK_DOWN:
+							control.lookDown();
+							break;
+						case LOOK_UP:
+							control.lookUp();
+							break;
+						case LOOK_LEFT:
+							control.lookLeft();
+							break;
+						case LOOK_RIGHT:
+							control.lookRight();
+							break;
+						case MOVE_BACKWARDS:
+							control.moveBackward();
+							break;
+						case MOVE_FORWARDS:
+							control.moveForward();
+							break;
+						case MOVE_DOWN:
+							control.moveDown();
+							break;
+						case MOVE_UP:
+							control.moveUp();
+							break;
+						case MOVE_LEFT:
+							control.moveLeft();
+							break;
+						case MOVE_RIGHT:
+							control.moveRight();
+							break;
+						}
+					}
+				}
+/*
 				extendedFunction = obj.getBoolean("EF");
 				resultData.setProximity(obj.getDouble("Proximity"));
 
@@ -135,6 +175,7 @@ public class Server implements Runnable {
 						control.pressKeyArrowLeft();
 					}
 				}
+*/
 
 			}
 		} catch (SocketException e) {
