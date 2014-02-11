@@ -1,23 +1,23 @@
 package sk.fiit.remotefiit.interfaces;
 
 public interface Control {
-	public void lookDown();
+	public void lookDown(int delay);
 
-	public void lookLeft();
+	public void lookLeft(int delay);
 	
-	public void lookRight();
+	public void lookRight(int delay);
 	
-	public void lookUp();
+	public void lookUp(int delay);
 	
-	public void moveBackward();
+	public void moveBackward(int delay);
 	
-	public void moveDown();
+	public void moveDown(int delay);
 	
-	public void moveForward();
+	public void moveForward(int delay);
 	
-	public void moveLeft();
+	public void moveLeft(int delay);
 	
-	public void moveRight();
+	public void moveRight(int delay);
 	
-	public void moveUp();
+	public void moveUp(int delay);
 }

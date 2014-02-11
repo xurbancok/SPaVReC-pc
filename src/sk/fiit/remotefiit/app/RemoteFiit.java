@@ -58,6 +58,7 @@ public class RemoteFiit {
 	
 	private String port;
 	private JLabel jLabel = null;
+	private QRCodeCreator qrCodeCreator = new QRCodeCreator();
 	/**
 	 * This method initializes jFrame
 	 * 
@@ -70,7 +71,7 @@ public class RemoteFiit {
 			jFrame.setJMenuBar(getJJMenuBar());
 			jFrame.setSize(400, 330);
 			jFrame.setContentPane(getJContentPane());
-			jFrame.setTitle("RemoteFiit PC");
+			jFrame.setTitle("FiitRemote PC");
 			jFrame.setLocationRelativeTo(null);
 			init();
 		}
@@ -157,7 +158,7 @@ public class RemoteFiit {
 					try {
 						jLabel.setText(InetAddress.getLocalHost().getHostAddress() + ":" + port);
 						String host = InetAddress.getLocalHost().getHostAddress() + ":" + port;
-						jLabelQR.setIcon(QRCodeCreator.getQr(host));
+						jLabelQR.setIcon(qrCodeCreator.getQRCode(host));
 					} catch (UnknownHostException e2) {
 						jLabel2.setText("<html><font color='red'>!!! Unknown host !!!</font></html>");
 						jButtonStart.setEnabled(false);

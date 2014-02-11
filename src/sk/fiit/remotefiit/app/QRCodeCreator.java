@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Hashtable;
 import javax.swing.ImageIcon;
 
+import sk.fiit.remotefiit.interfaces.QRCode;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -15,9 +17,10 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 //zdroj: http://crunchify.com/java-simple-qr-code-generator-example/
 
-public class QRCodeCreator {
+public class QRCodeCreator implements QRCode{
 
-	public static ImageIcon getQr(String input){
+	@Override
+	public ImageIcon getQRCode(String input){
 	        int size = 125;
 	        BufferedImage image = null;
 	        ImageIcon result = null;

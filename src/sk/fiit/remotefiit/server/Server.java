@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import sk.fiit.remotefiit.app.JSONParser;
 import sk.fiit.remotefiit.app.Movement;
 import sk.fiit.remotefiit.app.RemoteFiit;
+import sk.fiit.remotefiit.control.PacketProcessing;
 import sk.fiit.remotefiit.control.VRControl;
 
 public class Server implements Runnable {
@@ -17,7 +18,10 @@ public class Server implements Runnable {
 	private RemoteFiit application;
 	private VRControl control;
 	private JSONParser jsonParser;
-	private int port;
+	private final int delay = 100;
+	private final int delay_1 = 60;
+	private final int delay_2 = 30;
+	private PacketProcessing packetProcessing;
 	
 	public Server(int port, RemoteFiit application){
 		this.application = application;
@@ -36,47 +40,100 @@ public class Server implements Runnable {
 			
 			while (true) {
 				serverSocket.receive(receivePacket);
-				String receivedMessage = new String(receivePacket.getData());
-				System.out.println("RECEIVED: " + receivedMessage);
+//				String receivedMessage = new String(receivePacket.getData());
+//				System.out.println("RECEIVED: " + receivedMessage);
 				//JSONObject obj = new JSONObject(receivedMessage);
+				packetProcessing = new PacketProcessing();
+				packetProcessing.setDatagramPacket(receivePacket);
+				packetProcessing.run();
+				/*
 				JSONObject obj = new JSONObject(receivedMessage);
 				List<Movement> movements = jsonParser.parse(obj);
 				if(movements!=null && movements.size()!=0){
 					for(Movement item : movements){
 						switch(item){
 						case LOOK_DOWN:
-							control.lookDown();
+							control.lookDown(delay);
 							break;
 						case LOOK_UP:
-							control.lookUp();
+							control.lookUp(delay);
 							break;
 						case LOOK_LEFT:
-							control.lookLeft();
+							control.lookLeft(delay);
+							break;
+						case LOOK_LEFT_1:
+							control.lookLeft(delay_1);
+							break;	
+						case LOOK_LEFT_2:
+							control.lookLeft(delay_2);
 							break;
 						case LOOK_RIGHT:
-							control.lookRight();
+							control.lookRight(delay);
+							break;
+						case LOOK_RIGHT_1:
+							control.lookRight(delay_1);
+							break;
+						case LOOK_RIGHT_2:
+							control.lookRight(delay_2);
 							break;
 						case MOVE_BACKWARDS:
-							control.moveBackward();
+							control.moveBackward(delay);
+							break;
+						case MOVE_BACKWARDS_1:
+							control.moveBackward(delay_1);
+							break;
+						case MOVE_BACKWARDS_2:
+							control.moveBackward(delay_2);
 							break;
 						case MOVE_FORWARDS:
-							control.moveForward();
+							control.moveForward(delay);
+							break;
+						case MOVE_FORWARDS_1:
+							control.moveForward(delay_1);
+							break;
+						case MOVE_FORWARDS_2:
+							control.moveForward(delay_2);
 							break;
 						case MOVE_DOWN:
-							control.moveDown();
+							control.moveDown(delay);
+							break;
+						case MOVE_DOWN_1:
+							control.moveDown(delay_1);
+							break;
+						case MOVE_DOWN_2:
+							control.moveDown(delay_2);
 							break;
 						case MOVE_UP:
-							control.moveUp();
+							control.moveUp(delay);
+							break;
+						case MOVE_UP_1:
+							control.moveUp(delay_1);
+							break;
+						case MOVE_UP_2:
+							control.moveUp(delay_2);
 							break;
 						case MOVE_LEFT:
-							control.moveLeft();
+							control.moveLeft(delay);
+							break;
+						case MOVE_LEFT_1:
+							control.moveLeft(delay_1);
+							break;
+						case MOVE_LEFT_2:
+							control.moveLeft(delay_2);
 							break;
 						case MOVE_RIGHT:
-							control.moveRight();
+							control.moveRight(delay);
+							break;
+						case MOVE_RIGHT_1:
+							control.moveRight(delay_1);
+							break;
+						case MOVE_RIGHT_2:
+							control.moveRight(delay_2);
 							break;
 						}
 					}
 				}
+				*/
 /*
 				extendedFunction = obj.getBoolean("EF");
 				resultData.setProximity(obj.getDouble("Proximity"));
@@ -182,9 +239,6 @@ public class Server implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
