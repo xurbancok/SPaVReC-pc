@@ -16,7 +16,7 @@ import sk.fiit.remotefiit.control.VRControl;
 public class Server implements Runnable {
 
 	private RemoteFiit application;
-	private VRControl control;
+	//private VRControl control;
 	private JSONParser jsonParser;
 	private final int delay = 100;
 	private final int delay_1 = 60;
@@ -25,7 +25,7 @@ public class Server implements Runnable {
 	
 	public Server(int port, RemoteFiit application){
 		this.application = application;
-		this.control = new VRControl();
+		//this.control = new VRControl();
 		this.jsonParser = new JSONParser();
 	}
 

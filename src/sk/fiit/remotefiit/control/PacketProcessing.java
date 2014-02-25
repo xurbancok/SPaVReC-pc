@@ -10,7 +10,7 @@ import sk.fiit.remotefiit.app.JSONParser;
 import sk.fiit.remotefiit.app.Movement;
 
 public class PacketProcessing implements Runnable {
-	private VRControl control = new VRControl();
+	private static VRControl control = new VRControl();
 	private JSONParser jsonParser = new JSONParser();
 	private final int delay = 80;
 	private final int delay_1 = 50;
