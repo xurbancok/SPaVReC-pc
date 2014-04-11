@@ -1,8 +1,15 @@
 package sk.fiit.remotefiit.server;
 
 import java.io.IOException;
+import java.lang.instrument.Instrumentation;
 import java.net.*;
 import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,45 +19,102 @@ import sk.fiit.remotefiit.app.Movement;
 import sk.fiit.remotefiit.app.RemoteFiit;
 import sk.fiit.remotefiit.control.PacketProcessing;
 import sk.fiit.remotefiit.control.VRControl;
+import sk.fiit.remotefiit.control.VRControlNew;
 
 public class Server implements Runnable {
 
 	private RemoteFiit application;
-	//private VRControl control;
+	private VRControlNew control;
 	private JSONParser jsonParser;
-	private final int delay = 100;
-	private final int delay_1 = 60;
-	private final int delay_2 = 30;
-	private PacketProcessing packetProcessing;
+	private final int delay = 1;
+	private final int delay_1 = 1;
+	private final int delay_2 = 1;
 	
-	public Server(int port, RemoteFiit application){
+	private PacketProcessing packetProcessing;
+	private Timer timer;
+	private DatagramSocket serverSocket;
+
+	public Server(RemoteFiit application, DatagramSocket serverSocket, Map<Movement, Integer> mapovanie){
 		this.application = application;
-		//this.control = new VRControl();
+		this.control = new VRControlNew(mapovanie);
 		this.jsonParser = new JSONParser();
+		this.serverSocket = serverSocket;
 	}
 
 	@Override
 	public void run() {
-		DatagramSocket serverSocket;
 		try {
-			serverSocket = new DatagramSocket(0);
 			application.setPort(String.valueOf(serverSocket.getLocalPort()));
 			byte receiveData[] = new byte[320];
 			DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
-			
+			List<Movement> movements;
+			JSONObject obj;
 			while (true) {
 				serverSocket.receive(receivePacket);
-//				String receivedMessage = new String(receivePacket.getData());
-//				System.out.println("RECEIVED: " + receivedMessage);
+				String receivedMessage = new String(receivePacket.getData());
+				System.out.println("RECEIVED: " + receivedMessage);
 				//JSONObject obj = new JSONObject(receivedMessage);
-				packetProcessing = new PacketProcessing();
-				packetProcessing.setDatagramPacket(receivePacket);
-				packetProcessing.run();
-				/*
-				JSONObject obj = new JSONObject(receivedMessage);
-				List<Movement> movements = jsonParser.parse(obj);
+				//packetProcessing = new PacketProcessing();
+				//packetProcessing.setDatagramPacket(receivePacket);
+				//packetProcessing.run();
+				if(timer !=null){
+					timer.cancel();
+					timer = null;
+				}
+				obj = new JSONObject(receivedMessage);
+				movements = jsonParser.parse(obj);
 				if(movements!=null && movements.size()!=0){
-					for(Movement item : movements){
+					if(movements.contains(Movement.MOVE_LEFT)){
+						control.moveLeft(1);
+					}else{
+						control.moveLeft(0);
+					}
+					if(movements.contains(Movement.MOVE_RIGHT)){
+						control.moveRight(1);
+					}else{
+						control.moveRight(0);
+					}
+					if(movements.contains(Movement.MOVE_UP)){
+						control.moveUp(1);
+					}else{
+						control.moveUp(0);
+					}
+					if(movements.contains(Movement.MOVE_DOWN)){
+						control.moveDown(1);
+					}else{
+						control.moveDown(0);
+					}
+					if(movements.contains(Movement.MOVE_FORWARDS)){
+						control.moveForward(1);
+					}else{
+						control.moveForward(0);
+					}
+					if(movements.contains(Movement.MOVE_BACKWARDS)){
+						control.moveBackward(1);
+					}else{
+						control.moveBackward(0);
+					}
+					if(movements.contains(Movement.LOOK_LEFT)){
+						control.lookLeft(1);
+					}else{
+						control.lookLeft(0);
+					}
+					if(movements.contains(Movement.LOOK_RIGHT)){
+						control.lookRight(1);
+					}else{
+						control.lookRight(0);
+					}
+					if(movements.contains(Movement.LOOK_UP)){
+						control.lookUp(1);
+					}else{
+						control.lookUp(0);
+					}
+					if(movements.contains(Movement.LOOK_DOWN)){
+						control.lookDown(1);
+					}else{
+						control.lookDown(0);
+					}
+				/*	for(Movement item : movements){
 						switch(item){
 						case LOOK_DOWN:
 							control.lookDown(delay);
@@ -132,8 +196,16 @@ public class Server implements Runnable {
 							break;
 						}
 					}
+					*/
 				}
-				*/
+				
+				timer = new Timer();
+				timer.schedule(new TimerTask() {
+					  @Override
+					  public void run() {
+					    control.reset();
+					  }
+					}, 110);
 /*
 				extendedFunction = obj.getBoolean("EF");
 				resultData.setProximity(obj.getDouble("Proximity"));
@@ -239,6 +311,9 @@ public class Server implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
