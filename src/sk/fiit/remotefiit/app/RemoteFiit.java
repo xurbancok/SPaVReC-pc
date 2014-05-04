@@ -119,7 +119,7 @@ public class RemoteFiit {
 			jFrame.setJMenuBar(getJJMenuBar());
 			jFrame.setSize(666, 366);
 			jFrame.setContentPane(getJContentPane());
-			jFrame.setTitle("FiitRemote PC");
+			jFrame.setTitle("SPaVReC");
 			jFrame.setLocationRelativeTo(null);
 		}
 		return jFrame;
@@ -429,7 +429,7 @@ public class RemoteFiit {
 		if (jButtonStart == null) {
 			jButtonStart = new JButton();
 			jButtonStart.setBounds(new Rectangle(167, 272, 365, 30));
-			jButtonStart.setText("START");
+			jButtonStart.setText("Start server");
 			jButtonStart.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					if (server != null) {
@@ -1174,6 +1174,7 @@ public class RemoteFiit {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				input.setText("");
 				input.setEditable(true);
+				profile.remove(getEnum(input.getName()));
 			}
 		});
 	}

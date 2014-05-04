@@ -42,11 +42,11 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.MOVE_BACKWARDS)){
 				if(mapovanie.get(Movement.MOVE_BACKWARDS)>900){
-					
+					this.moveMouse(mapovanie.get(Movement.MOVE_BACKWARDS));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.MOVE_BACKWARDS));
-					LOGGER.info("moveBackward");
 				}
+				LOGGER.info("moveBackward");
 			}
 //			robot.keyPress(40);
 //			LOGGER.info("moveBackward");
@@ -69,15 +69,15 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.MOVE_FORWARDS)){
 				if(mapovanie.get(Movement.MOVE_FORWARDS)>900){
-					
+					this.moveMouse(mapovanie.get(Movement.MOVE_FORWARDS));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.MOVE_FORWARDS));
-					LOGGER.info("moveForward");
 				}
+				LOGGER.info("moveForward");
 			}
 			//robot.keyPress(38);
 			//LOGGER.info("moveForward");
-			}
+		}
 		else{
 			if(mapovanie.containsKey(Movement.MOVE_FORWARDS)){
 				if(mapovanie.get(Movement.MOVE_FORWARDS)>900){
@@ -96,24 +96,11 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.LOOK_LEFT)){
 				if(mapovanie.get(Movement.LOOK_LEFT)>900){
-					switch(mapovanie.get(Movement.LOOK_LEFT)){
-					case 991:
-						new Thread(new MouseEvents(Movement.MOUSE_LEFT)).start();
-						break;
-					case 992:
-						new Thread(new MouseEvents(Movement.MOUSE_RIGHT)).start();
-						break;
-					case 993:
-						new Thread(new MouseEvents(Movement.MOUSE_UP)).start();
-						break;
-					case 994:
-						new Thread(new MouseEvents(Movement.MOUSE_DOWN)).start();
-						break;
-					}
+					this.moveMouse(mapovanie.get(Movement.LOOK_LEFT));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.LOOK_LEFT));
-					LOGGER.info("lookLeft");
 				}
+				LOGGER.info("lookLeft");
 			}
 		//	robot.keyPress(37);
 		//	LOGGER.info("lookLeft");
@@ -136,24 +123,11 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.LOOK_RIGHT)){
 				if(mapovanie.get(Movement.LOOK_RIGHT)>900){
-					switch(mapovanie.get(Movement.LOOK_RIGHT)){
-					case 991:
-						new Thread(new MouseEvents(Movement.MOUSE_LEFT)).start();
-						break;
-					case 992:
-						new Thread(new MouseEvents(Movement.MOUSE_RIGHT)).start();
-						break;
-					case 993:
-						new Thread(new MouseEvents(Movement.MOUSE_UP)).start();
-						break;
-					case 994:
-						new Thread(new MouseEvents(Movement.MOUSE_DOWN)).start();
-						break;
-					}
+					this.moveMouse(mapovanie.get(Movement.LOOK_RIGHT));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.LOOK_RIGHT));
-					LOGGER.info("lookRight");
 				}
+				LOGGER.info("lookRight");
 			}
 			//robot.keyPress(39);
 			//LOGGER.info("lookRight");
@@ -176,11 +150,11 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.MOVE_LEFT)){
 				if(mapovanie.get(Movement.MOVE_LEFT)>900){
-	
+					this.moveMouse(mapovanie.get(Movement.MOVE_LEFT));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.MOVE_LEFT));
-					LOGGER.info("moveLeft");
 				}
+				LOGGER.info("moveLeft");
 			}
 		//	robot.keyPress(65);
 		//	LOGGER.info("moveLeft");
@@ -203,11 +177,11 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.MOVE_RIGHT)){
 				if(mapovanie.get(Movement.MOVE_RIGHT)>900){
-	
+					this.moveMouse(mapovanie.get(Movement.MOVE_RIGHT));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.MOVE_RIGHT));
-					LOGGER.info("moveRight");
 				}
+				LOGGER.info("moveRight");
 			}
 			//robot.keyPress(68);
 			//LOGGER.info("moveRight");
@@ -230,15 +204,15 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.MOVE_UP)){
 				if(mapovanie.get(Movement.MOVE_UP)>900){
-	
+					this.moveMouse(mapovanie.get(Movement.MOVE_UP));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.MOVE_UP));
-					LOGGER.info("moveUp");
 				}
+				LOGGER.info("moveUp");
 			}
 			//LOGGER.info("moveUp");
 			//robot.keyPress(32);
-			}
+		}
 		else {
 			if(mapovanie.containsKey(Movement.MOVE_UP)){
 				if(mapovanie.get(Movement.MOVE_UP)>900){
@@ -257,11 +231,11 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.MOVE_DOWN)){
 				if(mapovanie.get(Movement.MOVE_DOWN)>900){
-	
+					this.moveMouse(mapovanie.get(Movement.MOVE_DOWN));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.MOVE_DOWN));
-					LOGGER.info("moveDown");
 				}
+				LOGGER.info("moveDown");
 			}
 			//LOGGER.info("moveDown " );
 			//robot.keyPress(17);
@@ -284,24 +258,11 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.LOOK_DOWN)){
 				if(mapovanie.get(Movement.LOOK_DOWN)>900){
-					switch(mapovanie.get(Movement.LOOK_DOWN)){
-					case 991:
-						new Thread(new MouseEvents(Movement.MOUSE_LEFT)).start();
-						break;
-					case 992:
-						new Thread(new MouseEvents(Movement.MOUSE_RIGHT)).start();
-						break;
-					case 993:
-						new Thread(new MouseEvents(Movement.MOUSE_UP)).start();
-						break;
-					case 994:
-						new Thread(new MouseEvents(Movement.MOUSE_DOWN)).start();
-						break;
-					}
+					this.moveMouse(mapovanie.get(Movement.LOOK_DOWN));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.LOOK_DOWN));
-					LOGGER.info("lookDown");
 				}
+				LOGGER.info("lookDown");
 			}
 			//robot.keyPress(34);
 			//LOGGER.info("lookDown");
@@ -324,34 +285,70 @@ public class VRControlNew implements Control {
 		if (delay == 1){
 			if(mapovanie.containsKey(Movement.LOOK_UP)){
 				if(mapovanie.get(Movement.LOOK_UP)>900){
-					switch(mapovanie.get(Movement.LOOK_UP)){
-					case 991:
-						new Thread(new MouseEvents(Movement.MOUSE_LEFT)).start();
-						break;
-					case 992:
-						new Thread(new MouseEvents(Movement.MOUSE_RIGHT)).start();
-						break;
-					case 993:
-						new Thread(new MouseEvents(Movement.MOUSE_UP)).start();
-						break;
-					case 994:
-						new Thread(new MouseEvents(Movement.MOUSE_DOWN)).start();
-						break;
-					}
+					this.moveMouse(mapovanie.get(Movement.LOOK_UP));
 				}else{
 					robot.keyPress(mapovanie.get(Movement.LOOK_UP));
-					LOGGER.info("lookUp");
 				}
+				LOGGER.info("lookUp");
 			}
 			//robot.keyPress(33);
-			//LOGGER.info("lookUp");
-			}
+		}
 		else {
 			if(mapovanie.containsKey(Movement.LOOK_UP)){
 				if(mapovanie.get(Movement.LOOK_UP)>900){
 
 				}else{
 					robot.keyRelease(mapovanie.get(Movement.LOOK_UP));
+				}
+			}
+			//robot.keyRelease(33);
+			//LOGGER.info("lookUp " + delay);
+		}
+	}
+	
+	public void rotateCW(int delay) {
+		if (delay == 1){
+			if(mapovanie.containsKey(Movement.ROTATE_CW)){
+				if(mapovanie.get(Movement.ROTATE_CW)>900){
+					this.moveMouse(mapovanie.get(Movement.ROTATE_CW));
+				}else{
+					robot.keyPress(mapovanie.get(Movement.ROTATE_CW));
+				}
+				LOGGER.info("rotateCW");
+			}
+			//robot.keyPress(33);
+		}
+		else {
+			if(mapovanie.containsKey(Movement.ROTATE_CW)){
+				if(mapovanie.get(Movement.ROTATE_CW)>900){
+
+				}else{
+					robot.keyRelease(mapovanie.get(Movement.ROTATE_CW));
+				}
+			}
+			//robot.keyRelease(33);
+			//LOGGER.info("lookUp " + delay);
+		}
+	}
+	
+	public void rotateCCW(int delay) {
+		if (delay == 1){
+			if(mapovanie.containsKey(Movement.ROTATE_CCW)){
+				if(mapovanie.get(Movement.ROTATE_CCW)>900){
+					this.moveMouse(mapovanie.get(Movement.ROTATE_CCW));
+				}else{
+					robot.keyPress(mapovanie.get(Movement.ROTATE_CCW));
+				}
+				LOGGER.info("rotateCCW");
+			}
+			//robot.keyPress(33);
+			}
+		else {
+			if(mapovanie.containsKey(Movement.ROTATE_CCW)){
+				if(mapovanie.get(Movement.ROTATE_CCW)>900){
+
+				}else{
+					robot.keyRelease(mapovanie.get(Movement.ROTATE_CCW));
 				}
 			}
 			//robot.keyRelease(33);
@@ -370,5 +367,22 @@ public class VRControlNew implements Control {
 		robot.keyRelease(17);
 		robot.keyRelease(34);
 		robot.keyRelease(33);
+	}
+	
+	private void moveMouse(int i){
+		switch(i){
+		case 991:
+			new Thread(new MouseEvents(Movement.MOUSE_LEFT)).start();
+			break;
+		case 992:
+			new Thread(new MouseEvents(Movement.MOUSE_RIGHT)).start();
+			break;
+		case 993:
+			new Thread(new MouseEvents(Movement.MOUSE_UP)).start();
+			break;
+		case 994:
+			new Thread(new MouseEvents(Movement.MOUSE_DOWN)).start();
+			break;
+		}
 	}
 }

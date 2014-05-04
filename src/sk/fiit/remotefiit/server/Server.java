@@ -114,6 +114,16 @@ public class Server implements Runnable {
 					}else{
 						control.lookDown(0);
 					}
+					if(movements.contains(Movement.ROTATE_CCW)){
+						control.rotateCCW(1);
+					}else{
+						control.rotateCCW(0);
+					}
+					if(movements.contains(Movement.ROTATE_CW)){
+						control.rotateCW(1);
+					}else{
+						control.rotateCW(0);
+					}
 				/*	for(Movement item : movements){
 						switch(item){
 						case LOOK_DOWN:
